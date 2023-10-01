@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.19)
-set(PROJECTNAME "JamTemplate")
+set(PROJECTNAME "HotAirBalloon")
 project(${PROJECTNAME})
 
 ## Helper Functions
@@ -91,7 +91,6 @@ endif ()
 ## setup Projects
 #####################################################
 add_subdirectory(impl)
-add_subdirectory(test)
 
 ## copy .clang-format to build directory
 #####################################################

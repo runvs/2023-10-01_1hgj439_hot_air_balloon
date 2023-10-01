@@ -13,12 +13,16 @@ class Player : public jt::GameObject {
 public:
     Player(std::shared_ptr<jt::Box2DWorldInterface> world);
 
+    jt::Vector2f getPosition() const;
+
 private:
     std::unique_ptr<InputComponentInterface> m_input { nullptr };
     std::unique_ptr<GraphicsComponentInterface> m_graphics { nullptr };
     std::unique_ptr<SoundComponentInterface> m_sound { nullptr };
 
     std::unique_ptr<jt::Box2DObject> m_b2Object { nullptr };
+
+    float m_angle = 0.0f;
 
     virtual void doCreate();
     virtual void doUpdate(float const elapsed);

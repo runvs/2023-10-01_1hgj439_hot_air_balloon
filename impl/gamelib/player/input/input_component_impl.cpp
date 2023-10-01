@@ -18,11 +18,12 @@ void InputComponentImpl::updateMovement(InputTargetInterface& target)
     if (m_keyboard->pressed(jt::KeyCode::A) || m_keyboard->pressed(jt::KeyCode::Left)) {
         target.addVelocity(jt::Vector2f { -speed, 0.0f });
     }
-
-    if (m_keyboard->pressed(jt::KeyCode::W) || m_keyboard->pressed(jt::KeyCode::Up)) {
-        target.addVelocity(jt::Vector2f { 0.0f, -speed });
+    auto pos = target.getPosition();
+    if (pos.x <= 0) {
+        pos.x = 0;
     }
-    if (m_keyboard->pressed(jt::KeyCode::S) || m_keyboard->pressed(jt::KeyCode::Down)) {
-        target.addVelocity(jt::Vector2f { 0.0f, speed });
+    if (pos.x >= GP::GetScreenSize().x - 32) {
+        pos.x = GP::GetScreenSize().x - 32;
     }
+    target.setPosition(pos);
 }

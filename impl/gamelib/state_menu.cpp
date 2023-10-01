@@ -36,6 +36,7 @@ void StateMenu::onCreate()
 void StateMenu::onEnter()
 {
     createTweens();
+    createTextExplanation();
     m_started = false;
 }
 
@@ -61,8 +62,20 @@ void StateMenu::createMenuText()
 }
 void StateMenu::createTextExplanation()
 {
-    m_textExplanation
-        = jt::dh::createText(renderTarget(), GP::ExplanationText(), 16U, GP::PaletteFontFront());
+    auto text = GP::ExplanationText();
+    float lastScore = 0.0f;
+    {
+        std::ifstream fi { "score.txt" };
+        if (fi.good()) {
+
+            fi >> lastScore;
+        }
+    }
+
+    if (lastScore != 0) {
+        text += "\nLast Score: " + jt::MathHelper::floatToStringWithXDigits(lastScore, 2);
+    }
+    m_textExplanation = jt::dh::createText(renderTarget(), text, 16U, GP::PaletteFontFront());
     auto const half_width = GP::GetScreenSize().x / 2.0f;
     m_textExplanation->setPosition({ half_width, 180 });
     m_textExplanation->setShadow(GP::PaletteFontShadow(), jt::Vector2f { 2, 2 });
